@@ -67,10 +67,10 @@
                         <i class="fa-solid fa-basket-shopping text-xl"></i>
                         <span id="cart-count" class="absolute -top-1 -right-1 bg-[#c87a53] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
                     </button>
-                    <!-- Contact/Route CTA -->
-                    <a href="#reservasi" onclick="switchTab('tentang');" class="bg-[#c87a53] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl hover:bg-[#b0653f] transition shadow-md shadow-orange-700/10 hidden sm:block">
-                        Hubungi & Rute
-                    </a>
+                    <!-- Calculator Budget CTA -->
+                    <button onclick="toggleCart()" class="bg-[#c87a53] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl hover:bg-[#b0653f] transition shadow-md shadow-orange-700/10 hidden sm:block">
+                        Kalkulator Budget
+                    </button>
                 </div>
             </div>
         </div>
@@ -802,38 +802,38 @@
                     </div>
                 </div>
 
-                <!-- Right: Interactive Contact Form -->
-                <div id="reservasi" class="lg:col-span-5 bg-stone-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl space-y-6">
+                <!-- Live Budget Calculator Widget (Replacing Booking Form) -->
+                <div class="lg:col-span-5 bg-stone-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl flex flex-col justify-between space-y-6">
                     <div>
-                        <h3 class="font-extrabold text-xl font-serif-title">Hubungi Kami / Booking Meja</h3>
-                        <p class="text-xs text-stone-400 mt-1">Kirim pesan pertanyaan langsung atau request booking tempat untuk acara keluarga besar atau meeting kantor.</p>
+                        <div class="flex items-center space-x-2 text-[#f1a478]">
+                            <i class="fa-solid fa-calculator text-lg"></i>
+                            <h3 class="font-extrabold text-lg font-serif-title">Simulasi Anggaran Jajan</h3>
+                        </div>
+                        <p class="text-xs text-stone-400 mt-2 leading-relaxed">
+                            Kami tidak menerima pemesanan online / booking meja lewat web. Silakan gunakan kalkulator saku ini untuk merencanakan perkiraan budget jajan Anda sebelum berkunjung langsung ke KLAKON Pekalongan.
+                        </p>
                     </div>
 
-                    <form id="contactForm" onsubmit="handleInquirySubmit(event)" class="space-y-4 text-stone-800">
-                        <div>
-                            <label class="block text-stone-300 text-xs font-bold mb-1">Nama Lengkap</label>
-                            <input type="text" required placeholder="Ahmad Farhan" class="w-full bg-stone-800 border border-stone-700 text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#f1a478]">
+                    <!-- Live list in Tentang page -->
+                    <div class="space-y-3 bg-stone-800 p-4 rounded-xl border border-stone-700">
+                        <h4 class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Item dalam Rencana:</h4>
+                        <div id="about-calc-items" class="space-y-2 max-h-48 overflow-y-auto no-scrollbar">
+                            <!-- Dynamically populated via JS -->
                         </div>
-                        <div>
-                            <label class="block text-stone-300 text-xs font-bold mb-1">Nomor WhatsApp</label>
-                            <input type="tel" required placeholder="085XXXXXXXXX" class="w-full bg-stone-800 border border-stone-700 text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#f1a478]">
+                        <div class="pt-3 border-t border-stone-700 flex justify-between items-center text-xs font-bold">
+                            <span class="text-stone-300">Total Estimasi Anggaran:</span>
+                            <span id="about-calc-total" class="text-[#f1a478] text-sm">Rp 0</span>
                         </div>
-                        <div>
-                            <label class="block text-stone-300 text-xs font-bold mb-1">Jenis Layanan</label>
-                            <select class="w-full bg-stone-800 border border-stone-700 text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#f1a478]">
-                                <option>Reservasi VIP Room AC</option>
-                                <option>Booking Meja Ulang Tahun</option>
-                                <option>Hanya Bertanya Informasi Menu</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-stone-300 text-xs font-bold mb-1">Rencana Jumlah Orang & Pesan</label>
-                            <textarea rows="4" required placeholder="Tuliskan tanggal kedatangan dan detail pesanan..." class="w-full bg-stone-800 border border-stone-700 text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#f1a478]"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-[#c87a53] text-white hover:bg-[#b0653f] font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-orange-700/15">
-                            Kirim Simulasi Booking ke CS
+                    </div>
+
+                    <div class="space-y-2">
+                        <button onclick="switchTab('menu')" class="w-full bg-[#c87a53] text-white hover:bg-[#b0653f] font-bold py-3 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow-md shadow-orange-700/15">
+                            <i class="fa-solid fa-plus-circle"></i> Pilih Menu & Tambah Item
                         </button>
-                    </form>
+                        <p class="text-[10px] text-center text-stone-400">
+                            *Gunakan daftar perkiraan di atas untuk mempermudah pemesanan langsung di kasir kami.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -874,7 +874,7 @@
                     Reset
                 </button>
                 <button onclick="checkoutCart()" class="w-2/3 bg-stone-950 hover:bg-[#c87a53] text-white font-bold py-3.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5">
-                    <i class="fa-solid fa-file-invoice-dollar"></i> Cetak Estimasi
+                    <i class="fa-solid fa-check"></i> Selesai Hitung
                 </button>
             </div>
         </div>
@@ -1002,7 +1002,7 @@
                 subtext: "17 ulasan • 174 foto",
                 rating: 4,
                 timestamp: Math.floor(Date.now() / 1000) - (180 * 24 * 3600), // 6 months ago
-                text: "Tempat nongkrong 2 lantai yang nyaman, ada bean bag santai dan live music di malam-malam tertentu. Kasirnya cukup ramah dan menunya variatif dari barat sampai camilan lokal.",
+                text: "Tempat nongkrong 2 lantai yang nyaman, ada bean bag santai dan live music juga pas kesini cuma agak kurang si live musicnya waktu itu. pelayanan nya tolong ditingkatin lagi buat bagian kasir udah bagus si cuma kurang ramah lagi sedikit Lainnya",
                 tag: "Suasana & Moroccan Design",
                 likes: 24,
                 initials: "R8"
@@ -1012,6 +1012,7 @@
         window.onload = function() {
             updateLiveStatusBadge();
             renderReviews();
+            updateCartUI();
             setInterval(updateLiveStatusBadge, 60000);
         }
 
@@ -1199,6 +1200,9 @@
             const cartCount = document.getElementById('cart-count');
             const cartTotal = document.getElementById('cart-total');
             const emptyMessage = document.getElementById('empty-cart-message');
+            
+            const aboutCalcItems = document.getElementById('about-calc-items');
+            const aboutCalcTotal = document.getElementById('about-calc-total');
 
             const totalCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
             if (totalCount > 0) {
@@ -1211,12 +1215,19 @@
             }
 
             cartItemsContainer.querySelectorAll('.cart-item').forEach(el => el.remove());
+            if (aboutCalcItems) aboutCalcItems.innerHTML = '';
             
             let totalAmount = 0;
+            
+            if (cart.length === 0 && aboutCalcItems) {
+                aboutCalcItems.innerHTML = `<p class="text-[11px] text-stone-500 italic text-center py-4">Belum ada item. Tambahkan dari menu!</p>`;
+            }
+
             cart.forEach(item => {
                 const amount = item.price * item.quantity;
                 totalAmount += amount;
 
+                // 1. Render in main cart drawer
                 const itemRow = document.createElement('div');
                 itemRow.className = "cart-item bg-orange-50/40 p-4 rounded-xl border border-orange-100/70 flex justify-between items-center";
                 itemRow.innerHTML = `
@@ -1232,18 +1243,31 @@
                     </div>
                 `;
                 cartItemsContainer.appendChild(itemRow);
+
+                // 2. Render in about tab live saku widget
+                if (aboutCalcItems) {
+                    const aboutRow = document.createElement('div');
+                    aboutRow.className = "flex justify-between items-center text-xs text-stone-300 py-1 border-b border-stone-800/40";
+                    aboutRow.innerHTML = `
+                        <span class="font-medium">${item.name} <span class="text-[#f1a478]">x${item.quantity}</span></span>
+                        <span class="font-bold text-stone-200">Rp ${amount.toLocaleString('id-ID')}</span>
+                    `;
+                    aboutCalcItems.appendChild(aboutRow);
+                }
             });
 
             cartTotal.innerText = `Rp ${totalAmount.toLocaleString('id-ID')}`;
+            if (aboutCalcTotal) {
+                aboutCalcTotal.innerText = `Rp ${totalAmount.toLocaleString('id-ID')}`;
+            }
         }
 
         function checkoutCart() {
             if (cart.length === 0) {
-                showToast("Silakan tambahkan menu makanan/minuman terlebih dahulu.");
+                showToast("Silakan tambahkan menu jajan terlebih dahulu.");
                 return;
             }
-            showToast("Simulasi estimasi selesai! Rencana belanja berhasil disimpan.");
-            clearCart();
+            showToast("Perhitungan anggaran selesai! Tunjukkan daftar ini ke kasir saat memesan di KLAKON.");
             toggleCart();
         }
 
